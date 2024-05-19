@@ -14,7 +14,7 @@ func server() {
 		return
 	}
 	for {
-		// accept a conneciton
+		// accept a connection
 		c, err := ln.Accept()
 		if err != nil {
 			fmt.Println(err)
