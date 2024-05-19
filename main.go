@@ -35,7 +35,10 @@ func handleServerConnection(c net.Conn) {
 		fmt.Println(msg)
 	}
 
-	c.Close()
+	err = c.Close()
+	if err != nil {
+		return
+	}
 }
 
 func client() {
@@ -45,7 +48,12 @@ func client() {
 		fmt.Println(err)
 		return
 	}
-	defer c.Close()
+	defer func(c net.Conn) {
+		err := c.Close()
+		if err != nil {
+
+		}
+	}(c)
 	msg := "Hello World!"
 	fmt.Println("Sending: ", msg)
 	err = gob.NewEncoder(c).Encode(msg)
@@ -60,5 +68,8 @@ func main() {
 	go client()
 
 	var input string
-	fmt.Scanln(&input)
+	_, err := fmt.Scanln(&input)
+	if err != nil {
+		return
+	}
 }
