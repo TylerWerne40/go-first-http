@@ -8,7 +8,7 @@ import (
 
 func server() {
 	// listen on a port
-	ln, err := net.Listen("tcp", ":8080")
+	ln, err := net.Listen("http", ":8080")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -43,7 +43,7 @@ func handleServerConnection(c net.Conn) {
 
 func client() {
 	// connect to the server
-	c, err := net.Dial("tcp", ":8080")
+	c, err := net.Dial("http", ":8080")
 	if err != nil {
 		fmt.Println(err)
 		return
